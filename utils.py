@@ -141,17 +141,37 @@ def reverse_feature_scaling(standardized, mean, std):
 #------------------------------------------------------------------#
 #                       file management utils                      #
 # -----------------------------------------------------------------#
-def load_csv(csv_filename) -> 'pandas.core.frame.DataFrame':
-    if not csv_filename.endswith('.csv'):
-        raise ValueError("The provided file is not a CSV file.")
-    df = pd.read_csv(csv_filename)
-    # print(df.shape())
+
+def load_csv(csv_pathname) -> 'pandas.core.frame.DataFrame':
+    """
+    Load a csv file and validate structure to perform linear regression on it
+
+    Args:
+        csv_pathname (str): path to csv file
+
+    Raises:
+        TypeError: file must be csv 
+        TypeError: dataframe must have 2 columns
+
+    Returns:
+        pandas.core.frame.DataFrame: dataframe, column x name, column y name
+    """
+    if not csv_pathname.endswith('.csv'):
+        raise TypeError("The provided file is not a CSV file.")
+    df = pd.read_csv(csv_pathname)
     if df.shape[1] != 2:
         raise TypeError("Invalid dataset to perform linear regression.")
     column_names = df.columns
     return df, column_names[0], column_names[1]
 
 def save_parameters_to_file(parameters, filename):
+    """
+    Save a dictionary of parameters to a binary file
+
+    Args:
+        parameters (dict): dictionary of parameters to be saved
+        filename (str): name of the file to save the parameters 
+    """
     with open(filename, 'wb') as file:
         pickle.dump(parameters, file)
     print(f"Parameters saved to {filename}")
@@ -174,7 +194,6 @@ def load_parameters_from_file(filename):
     except FileNotFoundError:
         print(f"Parameters '{filename}' not loaded. Model hasn't been trained yet")
         return None 
-# 
 
 #------------------------------------------------------------------#
 #                           graphs utils                           #
