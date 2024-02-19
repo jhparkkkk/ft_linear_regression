@@ -17,7 +17,6 @@ def set_parameters(parameters):
         for param_name in parameters_list:
             globals()[param_name] = parameters.get(param_name, 0)
     else:
-        print('ici')
         for param_name in parameters_list:
             globals()[param_name] = 0
 

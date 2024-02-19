@@ -42,7 +42,7 @@ class linearRegression:
     def loss_function(self, Y_pred: np.array) -> float:
         """
         Mean Square Error
-        Tells me how much I am off from the actual result
+        Tells how much predictions are off from the actual result
 
         Args:
             Y_pred (_type_): Predicted values
@@ -50,7 +50,7 @@ class linearRegression:
         Returns:
             float: error 
         """
-        mse = (1 / (2 * self.m)) * (np.sum(Y_pred - self.Y)**2)
+        mse = np.sum((self.Y - Y_pred) ** 2) / self.m
         return mse
 
     def update_theta(self, Y_predictions: list):

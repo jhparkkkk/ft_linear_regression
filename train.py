@@ -13,7 +13,7 @@ from utils import feature_scaling, reverse_feature_scaling, plot_all, load_csv, 
 from test import test
 
 DATA_PATH = "./dataset/"
-EPOCHS = 200
+EPOCHS = 300
 
 def gradient_descent(x, y):
     """
