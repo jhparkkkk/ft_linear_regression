@@ -5,14 +5,12 @@ import sys
 import numpy as np
 from colorama import Fore
 import pickle
-# TODO: to test with my own LinearRegression
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error,mean_squared_error
 from linearRegression import linearRegression
 from utils import feature_scaling, reverse_feature_scaling, plot_all, load_csv, save_parameters_to_file
 from test import test
 
-DATA_PATH = "./dataset/"
 EPOCHS = 300
 
 def gradient_descent(x, y):
@@ -44,7 +42,7 @@ if __name__ == "__main__":
             print("Usage: python train.py <csv_file_path>")
             sys.exit(1)
         # load data
-        df, x, y = load_csv(f"{DATA_PATH}{sys.argv[1]}")
+        df, x, y = load_csv(sys.argv[1])
         # feature scaling 
         df_scaled, means, stds = feature_scaling(df, [x, y])
         # train model
@@ -56,6 +54,7 @@ if __name__ == "__main__":
         # save parameters to file
         parameters_to_save = {'theta0': model.theta[0], 'theta1': model.theta[1], 'x_mean': means[0], 'y_mean': means[1], 'x_std': stds[0], 'y_std': stds[1]}
         save_parameters_to_file(parameters_to_save, 'parameters')
+        
         # plot result
         plot_all(df, x, y, my_predictions, scikit_learn_predictions, costs)
     except Exception as error:
